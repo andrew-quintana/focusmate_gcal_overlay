@@ -1,0 +1,9 @@
+{
+  "rules": [
+    ".cursor/rules/scoping_document.md",
+    ".cursor/rules/architecture_rules.md",
+    ".cursor/rules/state_of_development.md",
+    ".cursor/rules/date_handling.md"
+  ]
+}
+

@@ -1,0 +1,25 @@
+# Chrome extension build artifacts
+*.crx
+*.pem
+*.zip
+
+# TypeScript build output
+dist/
+*.js.map
+*.d.ts.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules
+node_modules/
+package-lock.json
+
