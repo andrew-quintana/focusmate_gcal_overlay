@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "A Chrome extension for managing FocusMate calendar",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "clean": "rm -rf dist"
+    "build": "node build.js",
+    "watch": "node build.js --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.268",
-    "typescript": "^5.3.3"
+    "@vitest/coverage-v8": "^1.0.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.0"
   }
 }
 

@@ -5,7 +5,8 @@
   "description": "A Chrome extension for managing FocusMate calendar",
   "permissions": [
     "storage",
-    "identity"
+    "identity",
+    "scripting"
   ],
   "host_permissions": [
     "https://app.focusmate.com/*",

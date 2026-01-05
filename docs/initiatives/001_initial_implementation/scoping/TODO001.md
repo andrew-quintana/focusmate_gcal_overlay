@@ -12,65 +12,65 @@
 
 ### Setup Tasks
 
-- [ ] Initialize TypeScript project with `tsconfig.json`
-  - [ ] Enable strict mode
-  - [ ] Configure compilation target (ES2020)
-  - [ ] Set up module resolution
-  - [ ] Configure source maps for debugging
+- [x] Initialize TypeScript project with `tsconfig.json`
+  - [x] Enable strict mode
+  - [x] Configure compilation target (ES2020)
+  - [x] Set up module resolution
+  - [x] Configure source maps for debugging
 
-- [ ] Set up build tooling
-  - [ ] Choose and configure build tool (webpack/rollup/esbuild)
-  - [ ] Configure build to output to `dist/` directory
-  - [ ] Set up watch mode for development
-  - [ ] Configure build scripts in `package.json`
+- [x] Set up build tooling
+  - [x] Choose and configure build tool (webpack/rollup/esbuild)
+  - [x] Configure build to output to `dist/` directory
+  - [x] Set up watch mode for development
+  - [x] Configure build scripts in `package.json`
 
-- [ ] Create project directory structure
-  - [ ] Create `src/` directory with subdirectories (background/, content/, options/, popup/, types/, utils/)
-  - [ ] Create `dist/` directory for compiled output
-  - [ ] Create `tests/` directory with fixtures/ and unit/ subdirectories
+- [x] Create project directory structure
+  - [x] Create `src/` directory with subdirectories (background/, content/, options/, popup/, types/, utils/)
+  - [x] Create `dist/` directory for compiled output
+  - [x] Create `tests/` directory with fixtures/ and unit/ subdirectories
 
-- [ ] Set up Chrome extension manifest
-  - [ ] Update `manifest.json` to reference compiled JavaScript files in `dist/`
-  - [ ] Configure permissions: `identity`, `storage`, `scripting`
-  - [ ] Configure host permissions for `https://app.focusmate.com/*` and `https://www.googleapis.com/*`
-  - [ ] Set up content scripts configuration
+- [x] Set up Chrome extension manifest
+  - [x] Update `manifest.json` to reference compiled JavaScript files in `dist/`
+  - [x] Configure permissions: `identity`, `storage`, `scripting`
+  - [x] Configure host permissions for `https://app.focusmate.com/*` and `https://www.googleapis.com/*`
+  - [x] Set up content scripts configuration
 
-- [ ] Install dependencies
-  - [ ] Install TypeScript and type definitions
-  - [ ] Install build tool dependencies
-  - [ ] Install testing framework (Jest/Vitest) and TypeScript support
-  - [ ] Install `@types/chrome` for Chrome API types (if available)
+- [x] Install dependencies
+  - [x] Install TypeScript and type definitions
+  - [x] Install build tool dependencies
+  - [x] Install testing framework (Jest/Vitest) and TypeScript support
+  - [x] Install `@types/chrome` for Chrome API types (if available)
 
 ### Type Definitions
 
-- [ ] Create `src/types/events.ts`
-  - [ ] Define `GCalEvent` interface
-  - [ ] Define `FocusmateSession` interface
-  - [ ] Define `ConflictMap` type
+- [x] Create `src/types/events.ts`
+  - [x] Define `GCalEvent` interface
+  - [x] Define `FocusmateSession` interface
+  - [x] Define `ConflictMap` type
 
-- [ ] Create `src/types/messages.ts`
-  - [ ] Define `FetchDataForRangeMessage` interface
-  - [ ] Define `RangeDataResponse` interface
-  - [ ] Define `GetSettingsMessage` and `SettingsResponse` interfaces
+- [x] Create `src/types/messages.ts`
+  - [x] Define `FetchDataForRangeMessage` interface
+  - [x] Define `RangeDataResponse` interface
+  - [x] Define `GetSettingsMessage` and `SettingsResponse` interfaces
 
-- [ ] Create `src/types/storage.ts`
-  - [ ] Define `ExtensionSettings` interface
-  - [ ] Define storage key constants
+- [x] Create `src/types/storage.ts`
+  - [x] Define `ExtensionSettings` interface
+  - [x] Define storage key constants
 
 ### Phase 1 Testing
 
-- [ ] **Phase 1 Testing Summary** (`intermediate/phase_1_testing.md`)
-  - [ ] Verify TypeScript compilation succeeds
-  - [ ] Verify build output structure
-  - [ ] Verify manifest.json references correct files
-  - [ ] Test extension loads in Chrome (Developer Mode)
+- [x] **Phase 1 Testing Summary** (`intermediate/phase_1_testing.md`)
+  - [x] Verify TypeScript compilation succeeds
+  - [x] Verify build output structure
+  - [x] Verify manifest.json references correct files
+  - [ ] Test extension loads in Chrome (Developer Mode) - Manual test pending
 
 ### Phase 1 Handoff
 
-- [ ] **Phase 1 Handoff** (`intermediate/phase_1_handoff.md`)
-  - [ ] Document build process and commands
-  - [ ] Document project structure
-  - [ ] Document any setup issues encountered
+- [x] **Phase 1 Handoff** (`intermediate/phase_1_handoff.md`)
+  - [x] Document build process and commands
+  - [x] Document project structure
+  - [x] Document any setup issues encountered
 
 ## Phase 2 — Utility Functions & Core Logic
 

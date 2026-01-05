@@ -1,0 +1,56 @@
+/**
+ * Message types for communication between content script and background service worker
+ */
+
+import type { FocusmateSession } from './events';
+
+/**
+ * Message sent from content script to background requesting data for a date range
+ */
+export interface FetchDataForRangeMessage {
+  type: 'FETCH_DATA_FOR_RANGE';
+  range: { startMs: number; endMs: number };
+  timezone?: string;
+  visibleView?: 'day' | 'week' | 'unknown';
+  sessionsFromDom?: FocusmateSession[]; // only if DOM approach
+}
+
+/**
+ * Response from background with events, sessions, and conflicts
+ */
+export interface RangeDataResponse {
+  ok: boolean;
+  error?: string;
+  events?: import('./events').GCalEvent[];
+  sessions?: FocusmateSession[];
+  conflicts?: import('./events').ConflictMap;
+}
+
+/**
+ * Message to request current settings
+ */
+export interface GetSettingsMessage {
+  type: 'GET_SETTINGS';
+}
+
+/**
+ * Response with current extension settings
+ */
+export interface SettingsResponse {
+  overlayEnabled: boolean;
+  conflictColor: string;
+  calendarIds: string[];
+  focusmateApiKey: string | null;
+  debugLogging: boolean;
+}
+
+/**
+ * Union type for all messages from content script
+ */
+export type ContentToBackgroundMessage = FetchDataForRangeMessage | GetSettingsMessage;
+
+/**
+ * Union type for all messages from background
+ */
+export type BackgroundToContentMessage = RangeDataResponse | SettingsResponse;
+
