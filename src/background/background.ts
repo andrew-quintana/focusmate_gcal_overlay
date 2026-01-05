@@ -8,8 +8,10 @@ import type {
   BackgroundToContentMessage,
   FetchDataForRangeMessage,
   GetSettingsMessage,
+  GetCalendarsMessage,
   RangeDataResponse,
   SettingsResponse,
+  CalendarsResponse,
 } from '../types/messages';
 import type { ExtensionSettings } from '../types/storage';
 import { DEFAULT_SETTINGS, STORAGE_KEYS } from '../types/storage';
@@ -150,6 +152,9 @@ class BackgroundServiceWorker {
       } else if (message.type === 'GET_SETTINGS') {
         const response = await this.handleGetSettings(message);
         sendResponse(response);
+      } else if (message.type === 'GET_CALENDARS') {
+        const response = await this.handleGetCalendars(message);
+        sendResponse(response);
       } else {
         sendResponse({
           ok: false,
@@ -276,6 +281,35 @@ class BackgroundServiceWorker {
       focusmateApiKey: this.settings.focusmateApiKey,
       debugLogging: this.settings.debugLogging,
     };
+  }
+
+  /**
+   * Handles GET_CALENDARS message
+   */
+  private async handleGetCalendars(
+    message: GetCalendarsMessage
+  ): Promise<CalendarsResponse> {
+    try {
+      const calendars = await this.calendarClient.getAvailableCalendars(
+        this.settings.debugLogging
+      );
+
+      return {
+        ok: true,
+        calendars,
+      };
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      
+      if (this.settings.debugLogging) {
+        console.error('[BackgroundServiceWorker] Failed to get calendars:', error);
+      }
+
+      return {
+        ok: false,
+        error: errorMessage,
+      };
+    }
   }
 }
 

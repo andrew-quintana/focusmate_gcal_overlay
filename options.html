@@ -9,15 +9,102 @@
 <body>
   <div class="container">
     <header>
-      <h1>Extension Options</h1>
+      <h1>FocusMate Calendar Extension</h1>
+      <p class="subtitle">Configure your extension settings</p>
     </header>
+    
     <main>
-      <div class="content">
-        <p>Configure your extension settings here.</p>
-      </div>
+      <form id="optionsForm">
+        <!-- Overlay Toggle -->
+        <section class="form-section">
+          <h2>Overlay Settings</h2>
+          <div class="form-group">
+            <label class="checkbox-label" for="overlayEnabled">
+              <input type="checkbox" id="overlayEnabled" name="overlayEnabled">
+              <span>Enable calendar overlay on Focusmate page</span>
+            </label>
+            <p class="form-help">When enabled, your Google Calendar events will be displayed as an overlay on the Focusmate page.</p>
+          </div>
+        </section>
+
+        <!-- Calendar Selection -->
+        <section class="form-section">
+          <h2>Calendar Selection</h2>
+          <div class="form-group">
+            <label for="calendarList">Select calendars to include:</label>
+            <div id="calendarList" class="calendar-list" role="group" aria-label="Available calendars">
+              <div class="loading-placeholder">
+                <span id="loadingIndicator" class="loading-indicator" style="display: none;">Loading calendars...</span>
+              </div>
+            </div>
+            <p class="form-help">Select one or more calendars to display in the overlay. Calendars are organized by account and group.</p>
+          </div>
+        </section>
+
+        <!-- Conflict Color -->
+        <section class="form-section">
+          <h2>Conflict Highlighting</h2>
+          <div class="form-group">
+            <label for="conflictColor">Conflict highlight color:</label>
+            <div class="color-input-group">
+              <input type="color" id="conflictColor" name="conflictColor" value="#ff6b6b">
+              <input type="text" id="conflictColorText" placeholder="#ff6b6b" class="color-text-input">
+            </div>
+            <p class="form-help">Color used to highlight Focusmate sessions that conflict with Google Calendar events. Use hex format (#rrggbb) or CSS color names.</p>
+          </div>
+        </section>
+
+        <!-- Focusmate API Key -->
+        <section class="form-section">
+          <h2>Focusmate API (Optional)</h2>
+          <div class="form-group">
+            <label for="focusmateApiKey">Focusmate API Key:</label>
+            <input type="password" id="focusmateApiKey" name="focusmateApiKey" placeholder="Enter your Focusmate API key (optional)">
+            <p class="form-help">Optional. If provided, the extension will use the Focusmate API to fetch sessions. If not provided, sessions will be detected from the DOM or Google Calendar (when sync is enabled).</p>
+          </div>
+        </section>
+
+        <!-- Debug Logging -->
+        <section class="form-section">
+          <h2>Debug Settings</h2>
+          <div class="form-group">
+            <label class="checkbox-label" for="debugLogging">
+              <input type="checkbox" id="debugLogging" name="debugLogging">
+              <span>Enable debug logging</span>
+            </label>
+            <p class="form-help">When enabled, detailed debug information will be logged to the browser console. Useful for troubleshooting.</p>
+          </div>
+        </section>
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="button" id="saveButton" class="btn btn-primary">Save Settings</button>
+          <button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button>
+        </div>
+      </form>
     </main>
   </div>
   <script src="dist/options.js"></script>
+  <script>
+    // Sync color picker and text input
+    const colorInput = document.getElementById('conflictColor');
+    const colorTextInput = document.getElementById('conflictColorText');
+    
+    if (colorInput && colorTextInput) {
+      colorInput.addEventListener('input', () => {
+        colorTextInput.value = colorInput.value;
+      });
+      
+      colorTextInput.addEventListener('input', () => {
+        const value = colorTextInput.value.trim();
+        if (/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/i.test(value)) {
+          colorInput.value = value;
+        }
+      });
+    }
+  </script>
 </body>
 </html>
-

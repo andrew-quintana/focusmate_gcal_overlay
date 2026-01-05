@@ -34,6 +34,13 @@ export interface GetSettingsMessage {
 }
 
 /**
+ * Message to request available calendars
+ */
+export interface GetCalendarsMessage {
+  type: 'GET_CALENDARS';
+}
+
+/**
  * Response with current extension settings
  */
 export interface SettingsResponse {
@@ -45,12 +52,28 @@ export interface SettingsResponse {
 }
 
 /**
- * Union type for all messages from content script
+ * Response with available calendars
  */
-export type ContentToBackgroundMessage = FetchDataForRangeMessage | GetSettingsMessage;
+export interface CalendarsResponse {
+  ok: boolean;
+  error?: string;
+  calendars?: Array<{
+    id: string;
+    summary: string;
+    accountId?: string;
+    accountName?: string;
+    groupId?: string;
+    groupName?: string;
+  }>;
+}
+
+/**
+ * Union type for all messages from content script or options page
+ */
+export type ContentToBackgroundMessage = FetchDataForRangeMessage | GetSettingsMessage | GetCalendarsMessage;
 
 /**
  * Union type for all messages from background
  */
-export type BackgroundToContentMessage = RangeDataResponse | SettingsResponse;
+export type BackgroundToContentMessage = RangeDataResponse | SettingsResponse | CalendarsResponse;
 

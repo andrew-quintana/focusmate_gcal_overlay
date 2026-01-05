@@ -268,55 +268,55 @@
 
 ### Settings Management
 
-- [ ] Implement `src/options/settingsManager.ts`
-  - [ ] Create `SettingsManager` class
-  - [ ] Implement `loadSettings()` - load from `chrome.storage.local`
-  - [ ] Implement `saveSettings()` - save to `chrome.storage.local`
-  - [ ] Implement `getAvailableCalendars()` - fetch calendar list from Google
-  - [ ] Handle default values
-  - [ ] Validate settings before saving
+- [x] Implement `src/options/settingsManager.ts`
+  - [x] Create `SettingsManager` class
+  - [x] Implement `loadSettings()` - load from `chrome.storage.local`
+  - [x] Implement `saveSettings()` - save to `chrome.storage.local`
+  - [x] Implement `getAvailableCalendars()` - fetch calendar list from Google
+  - [x] Handle default values
+  - [x] Validate settings before saving
 
 ### Options UI
 
-- [ ] Update `options.html`
-  - [ ] Create form structure
-  - [ ] Add calendar selection UI (multi-select or checkboxes)
-  - [ ] Add color picker for conflict color
-  - [ ] Add toggle switches for overlay enabled and debug logging
-  - [ ] Add input field for Focusmate API key (optional)
-  - [ ] Add save/cancel buttons
-  - [ ] Add status messages for save feedback
+- [x] Update `options.html`
+  - [x] Create form structure
+  - [x] Add calendar selection UI (multi-select or checkboxes)
+  - [x] Add color picker for conflict color
+  - [x] Add toggle switches for overlay enabled and debug logging
+  - [x] Add input field for Focusmate API key (optional)
+  - [x] Add save/cancel buttons
+  - [x] Add status messages for save feedback
 
-- [ ] Implement `src/options/options.ts`
-  - [ ] Create `OptionsUI` class
-  - [ ] Implement `render()` - populate form with current settings
-  - [ ] Implement `bindEventHandlers()` - handle form interactions
-  - [ ] Implement `validateInput()` - validate user input
-  - [ ] Handle form submission
-  - [ ] Show success/error messages
-  - [ ] Load available calendars and populate selection
+- [x] Implement `src/options/options.ts`
+  - [x] Create `OptionsUI` class
+  - [x] Implement `render()` - populate form with current settings
+  - [x] Implement `bindEventHandlers()` - handle form interactions
+  - [x] Implement `validateInput()` - validate user input
+  - [x] Handle form submission
+  - [x] Show success/error messages
+  - [x] Load available calendars and populate selection
 
-- [ ] Style options page (`styles/options.css`)
-  - [ ] Modern, clean design
-  - [ ] Responsive layout
-  - [ ] Accessible form elements
-  - [ ] Clear labels and instructions
+- [x] Style options page (`styles/options.css`)
+  - [x] Modern, clean design
+  - [x] Responsive layout
+  - [x] Accessible form elements
+  - [x] Clear labels and instructions
 
 ### Phase 5 Testing
 
-- [ ] **Phase 5 Testing Summary** (`intermediate/phase_5_testing.md`)
-  - [ ] Test settings load and save
-  - [ ] Test calendar selection
-  - [ ] Test input validation
-  - [ ] Test settings persistence across browser sessions
-  - [ ] Test settings changes reflect in content script
+- [x] **Phase 5 Testing Summary** (`intermediate/phase_5_testing.md`)
+  - [x] Test settings load and save
+  - [x] Test calendar selection
+  - [x] Test input validation
+  - [x] Test settings persistence across browser sessions
+  - [x] Test settings changes reflect in content script
 
 ### Phase 5 Handoff
 
-- [ ] **Phase 5 Handoff** (`intermediate/phase_5_handoff.md`)
-  - [ ] Document settings schema
-  - [ ] Document UI/UX decisions
-  - [ ] Document any validation rules
+- [x] **Phase 5 Handoff** (`intermediate/phase_5_handoff.md`)
+  - [x] Document settings schema
+  - [x] Document UI/UX decisions
+  - [x] Document any validation rules
 
 ## Phase 6 — Integration, Polish & Validation
 
