@@ -134,60 +134,69 @@
 
 ### Google Calendar Integration
 
-- [ ] Implement `src/background/auth.ts`
-  - [ ] Create `GoogleAuthManager` class
-  - [ ] Implement `getAuthToken()` using `chrome.identity.getAuthToken()`
-  - [ ] Implement `refreshToken()` for token refresh
-  - [ ] Implement `removeCachedToken()` for error recovery
-  - [ ] Handle OAuth errors and user cancellation
+- [x] Implement `src/background/auth.ts`
+  - [x] Create `GoogleAuthManager` class
+  - [x] Implement `getAuthToken()` using `chrome.identity.getAuthToken()`
+  - [x] Implement `refreshToken()` for token refresh
+  - [x] Implement `removeCachedToken()` for error recovery
+  - [x] Handle OAuth errors and user cancellation
 
-- [ ] Implement `src/background/calendar.ts`
-  - [ ] Create `GoogleCalendarClient` class
-  - [ ] Implement `fetchEvents()` method
-  - [ ] Handle API request with proper query parameters (timeMin, timeMax, singleEvents, orderBy)
-  - [ ] Implement response normalization using `normalizeGCalEvent()`
-  - [ ] Handle API errors (401, rate limits, network errors)
-  - [ ] Implement caching with 60-second TTL
+- [x] Implement `src/background/calendar.ts`
+  - [x] Create `GoogleCalendarClient` class
+  - [x] Implement `fetchEvents()` method
+  - [x] Handle API request with proper query parameters (timeMin, timeMax, singleEvents, orderBy)
+  - [x] Implement response normalization using `normalizeGCalEvent()`
+  - [x] Handle API errors (401, rate limits, network errors)
+  - [x] Implement caching with 60-second TTL
 
-- [ ] Implement `src/background/focusmate.ts`
-  - [ ] Create `FocusmateClient` class
-  - [ ] Implement API-based session fetching (if API available)
-  - [ ] Implement fallback DOM-based session extraction (if needed)
-  - [ ] Handle API key validation
-  - [ ] Handle API errors gracefully
+- [x] Implement `src/background/focusmate.ts`
+  - [x] Create `FocusmateClient` class
+  - [x] Implement API-based session fetching (if API available)
+  - [x] Implement fallback DOM-based session extraction (if needed)
+  - [x] Handle API key validation
+  - [x] Handle API errors gracefully
 
-- [ ] Implement `src/background/conflict.ts`
-  - [ ] Create `ConflictComputer` class
-  - [ ] Use `computeConflicts()` utility function
-  - [ ] Handle empty sessions/events cases
+- [x] Implement `src/background/conflict.ts`
+  - [x] Create `ConflictComputer` class
+  - [x] Use `computeConflicts()` utility function
+  - [x] Handle empty sessions/events cases
 
 ### Background Service Worker Main
 
-- [ ] Implement `src/background/background.ts`
-  - [ ] Initialize service worker
-  - [ ] Set up message listeners for content script communication
-  - [ ] Handle `FETCH_DATA_FOR_RANGE` messages
-  - [ ] Handle `GET_SETTINGS` messages
-  - [ ] Coordinate between auth, calendar, focusmate, and conflict modules
-  - [ ] Implement error handling and logging
-  - [ ] Load settings from `chrome.storage.local`
+- [x] Implement `src/background/background.ts`
+  - [x] Initialize service worker
+  - [x] Set up message listeners for content script communication
+  - [x] Handle `FETCH_DATA_FOR_RANGE` messages
+  - [x] Handle `GET_SETTINGS` messages
+  - [x] Coordinate between auth, calendar, focusmate, and conflict modules
+  - [x] Implement error handling and logging
+  - [x] Load settings from `chrome.storage.local`
 
 ### Phase 3 Testing
 
-- [ ] **Phase 3 Testing Summary** (`intermediate/phase_3_testing.md`)
-  - [ ] Test OAuth flow (with mocked chrome.identity)
-  - [ ] Test Google Calendar API integration (with mocked fetch)
-  - [ ] Test message passing from content script
-  - [ ] Test caching behavior
-  - [ ] Test error handling scenarios
+- [x] **Phase 3 Testing Summary** (`intermediate/phase_3_testing.md`)
+  - [x] Test OAuth flow (with mocked chrome.identity)
+  - [x] Test Google Calendar API integration (with mocked fetch)
+  - [x] Test message passing from content script
+  - [x] Test caching behavior
+  - [x] Test error handling scenarios
 
 ### Phase 3 Handoff
 
-- [ ] **Phase 3 Handoff** (`intermediate/phase_3_handoff.md`)
-  - [ ] Document API integration details
-  - [ ] Document OAuth flow
-  - [ ] Document any API limitations discovered
-  - [ ] Document caching strategy
+- [x] **Phase 3 Handoff** (`intermediate/phase_3_handoff.md`)
+  - [x] Document API integration details
+  - [x] Document OAuth flow
+  - [x] Document any API limitations discovered
+  - [x] Document caching strategy
+
+### Phase 3 Decisions
+
+- [x] **Phase 3 Decisions** (`intermediate/phase_3_decisions.md`)
+  - [x] Document OAuth flow implementation
+  - [x] Document caching strategy details
+  - [x] Document API error handling approach
+  - [x] Document multiple account support implementation
+  - [x] Document any API limitations discovered
 
 ## Phase 4 — Content Script & Overlay UI
 

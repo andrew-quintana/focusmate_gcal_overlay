@@ -16,12 +16,20 @@ export const mockChrome = {
       set: vi.fn(),
       remove: vi.fn(),
     },
+    onChanged: {
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+    },
   },
   runtime: {
+    lastError: undefined as { message: string } | undefined,
     sendMessage: vi.fn(),
     onMessage: {
       addListener: vi.fn(),
       removeListener: vi.fn(),
+    },
+    onInstalled: {
+      addListener: vi.fn(),
     },
   },
 };
