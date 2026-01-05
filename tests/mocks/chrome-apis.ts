@@ -1,30 +1,33 @@
 /**
  * Mock implementations of Chrome extension APIs for testing
+ * Compatible with Vitest
  */
+
+import { vi } from 'vitest';
 
 export const mockChrome = {
   identity: {
-    getAuthToken: jest.fn(),
-    removeCachedAuthToken: jest.fn(),
+    getAuthToken: vi.fn(),
+    removeCachedAuthToken: vi.fn(),
   },
   storage: {
     local: {
-      get: jest.fn(),
-      set: jest.fn(),
-      remove: jest.fn(),
+      get: vi.fn(),
+      set: vi.fn(),
+      remove: vi.fn(),
     },
   },
   runtime: {
-    sendMessage: jest.fn(),
+    sendMessage: vi.fn(),
     onMessage: {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
     },
   },
 };
 
 // Make available globally for tests
 if (typeof global !== 'undefined') {
-  (global as any).chrome = mockChrome;
+  (global as typeof globalThis & { chrome: typeof mockChrome }).chrome = mockChrome;
 }
 

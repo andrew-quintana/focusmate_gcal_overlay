@@ -1,0 +1,61 @@
+{
+  "kind": "calendar#events",
+  "etag": "\"p33k8l3evh4hvk0g\"",
+  "summary": "primary",
+  "updated": "2025-01-04T12:00:00.000Z",
+  "timeZone": "America/New_York",
+  "items": [
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567894\"",
+      "id": "allday1",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=allday1",
+      "created": "2025-01-01T10:00:00.000Z",
+      "updated": "2025-01-01T10:00:00.000Z",
+      "summary": "Holiday",
+      "start": {
+        "date": "2025-01-04"
+      },
+      "end": {
+        "date": "2025-01-05"
+      },
+      "iCalUID": "allday1@google.com"
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567895\"",
+      "id": "allday2",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=allday2",
+      "created": "2025-01-01T11:00:00.000Z",
+      "updated": "2025-01-01T11:00:00.000Z",
+      "summary": "Multi-day Event",
+      "start": {
+        "date": "2025-01-03"
+      },
+      "end": {
+        "date": "2025-01-06"
+      },
+      "iCalUID": "allday2@google.com"
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567896\"",
+      "id": "allday3",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=allday3",
+      "created": "2025-01-01T12:00:00.000Z",
+      "updated": "2025-01-01T12:00:00.000Z",
+      "summary": "Single Day All-Day Event",
+      "start": {
+        "date": "2025-01-04"
+      },
+      "end": {
+        "date": "2025-01-05"
+      },
+      "iCalUID": "allday3@google.com"
+    }
+  ]
+}
+

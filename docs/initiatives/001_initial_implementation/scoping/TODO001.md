@@ -76,59 +76,59 @@
 
 ### Utility Functions Implementation
 
-- [ ] Implement `src/utils/overlap.ts`
-  - [ ] Create `intervalsOverlap()` function
-  - [ ] Handle edge cases (adjacent intervals, zero-length)
-  - [ ] Add JSDoc comments
-  - [ ] Write unit tests in `tests/unit/utils/overlap.test.ts`
+- [x] Implement `src/utils/overlap.ts`
+  - [x] Create `intervalsOverlap()` function
+  - [x] Handle edge cases (adjacent intervals, zero-length)
+  - [x] Add JSDoc comments
+  - [x] Write unit tests in `tests/unit/utils/overlap.test.ts`
 
-- [ ] Implement `src/utils/eventNormalization.ts`
-  - [ ] Create `normalizeGCalEvent()` function
-  - [ ] Handle all-day events (date vs dateTime)
-  - [ ] Handle timezone conversion to epoch milliseconds
-  - [ ] Exclude cancelled events
-  - [ ] Write unit tests in `tests/unit/utils/eventNormalization.test.ts`
+- [x] Implement `src/utils/eventNormalization.ts`
+  - [x] Create `normalizeGCalEvent()` function
+  - [x] Handle all-day events (date vs dateTime)
+  - [x] Handle timezone conversion to epoch milliseconds
+  - [x] Exclude cancelled events
+  - [x] Write unit tests in `tests/unit/utils/eventNormalization.test.ts`
 
-- [ ] Implement `src/utils/sessionNormalization.ts`
-  - [ ] Create `normalizeFocusmateSession()` function (for API)
-  - [ ] Create `extractSessionsFromDOM()` function (for DOM scraping)
-  - [ ] Implement session key generation logic
-  - [ ] Write unit tests in `tests/unit/utils/sessionNormalization.test.ts`
+- [x] Implement `src/utils/sessionNormalization.ts`
+  - [x] Create `normalizeFocusmateSession()` function (for API)
+  - [x] Create `extractSessionsFromDOM()` function (for DOM scraping) - placeholder for Phase 4
+  - [x] Implement session key generation logic
+  - [x] Write unit tests in `tests/unit/utils/sessionNormalization.test.ts`
 
-- [ ] Implement `src/utils/conflictDetection.ts`
-  - [ ] Create `computeConflicts()` function
-  - [ ] Use `intervalsOverlap()` for conflict detection
-  - [ ] Generate conflict map (sessionKey -> eventIds[])
-  - [ ] Handle all-day event conflicts
-  - [ ] Write unit tests in `tests/unit/utils/conflictDetection.test.ts`
+- [x] Implement `src/utils/conflictDetection.ts`
+  - [x] Create `computeConflicts()` function
+  - [x] Use `intervalsOverlap()` for conflict detection
+  - [x] Generate conflict map (sessionKey -> eventIds[])
+  - [x] Handle all-day event conflicts
+  - [x] Write unit tests in `tests/unit/utils/conflictDetection.test.ts`
 
 ### Test Fixtures
 
-- [ ] Create test fixtures in `tests/fixtures/`
-  - [ ] `googleCalendar/events_response.json` - Sample Google Calendar API response
-  - [ ] `googleCalendar/all_day_events.json` - All-day event examples
-  - [ ] `focusmate/api_response.json` - Sample Focusmate API response (if available)
-  - [ ] `focusmate/dom_structure.html` - Sample Focusmate DOM structure
+- [x] Create test fixtures in `tests/fixtures/`
+  - [x] `googleCalendar/events_response.json` - Sample Google Calendar API response
+  - [x] `googleCalendar/all_day_events.json` - All-day event examples
+  - [x] `focusmate/api_response.json` - Sample Focusmate API response (if available)
+  - [x] `focusmate/dom_structure.html` - Sample Focusmate DOM structure
 
-- [ ] Create Chrome API mocks in `tests/mocks/chrome-apis.ts`
-  - [ ] Mock `chrome.identity`
-  - [ ] Mock `chrome.storage`
-  - [ ] Mock `chrome.runtime`
+- [x] Create Chrome API mocks in `tests/mocks/chrome-apis.ts`
+  - [x] Mock `chrome.identity`
+  - [x] Mock `chrome.storage`
+  - [x] Mock `chrome.runtime`
 
 ### Phase 2 Testing
 
-- [ ] **Phase 2 Testing Summary** (`intermediate/phase_2_testing.md`)
-  - [ ] All utility function unit tests pass
-  - [ ] Test coverage meets 80% minimum
-  - [ ] Edge cases handled correctly
-  - [ ] All-day event conflicts work correctly
+- [x] **Phase 2 Testing Summary** (`intermediate/phase_2_testing.md`)
+  - [x] All utility function unit tests pass
+  - [x] Test coverage meets 80% minimum
+  - [x] Edge cases handled correctly
+  - [x] All-day event conflicts work correctly
 
 ### Phase 2 Handoff
 
-- [ ] **Phase 2 Handoff** (`intermediate/phase_2_handoff.md`)
-  - [ ] Document utility function interfaces
-  - [ ] Document any implementation decisions
-  - [ ] Document test coverage results
+- [x] **Phase 2 Handoff** (`intermediate/phase_2_handoff.md`)
+  - [x] Document utility function interfaces
+  - [x] Document any implementation decisions
+  - [x] Document test coverage results
 
 ## Phase 3 — Background Service Worker
 

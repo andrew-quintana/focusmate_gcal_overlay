@@ -1,0 +1,86 @@
+{
+  "kind": "calendar#events",
+  "etag": "\"p33k8l3evh4hvk0g\"",
+  "summary": "primary",
+  "updated": "2025-01-04T12:00:00.000Z",
+  "timeZone": "America/New_York",
+  "items": [
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567890\"",
+      "id": "event1",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=event1",
+      "created": "2025-01-01T10:00:00.000Z",
+      "updated": "2025-01-01T10:00:00.000Z",
+      "summary": "Team Meeting",
+      "start": {
+        "dateTime": "2025-01-04T14:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2025-01-04T15:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "iCalUID": "event1@google.com"
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567891\"",
+      "id": "event2",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=event2",
+      "created": "2025-01-01T11:00:00.000Z",
+      "updated": "2025-01-01T11:00:00.000Z",
+      "summary": "Lunch Break",
+      "start": {
+        "dateTime": "2025-01-04T12:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2025-01-04T13:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "iCalUID": "event2@google.com"
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567892\"",
+      "id": "event3",
+      "status": "cancelled",
+      "htmlLink": "https://www.google.com/calendar/event?eid=event3",
+      "created": "2025-01-01T12:00:00.000Z",
+      "updated": "2025-01-01T12:00:00.000Z",
+      "summary": "Cancelled Meeting",
+      "start": {
+        "dateTime": "2025-01-04T16:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2025-01-04T17:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "iCalUID": "event3@google.com"
+    },
+    {
+      "kind": "calendar#event",
+      "etag": "\"1234567893\"",
+      "id": "event4",
+      "status": "confirmed",
+      "htmlLink": "https://www.google.com/calendar/event?eid=event4",
+      "created": "2025-01-01T13:00:00.000Z",
+      "updated": "2025-01-01T13:00:00.000Z",
+      "summary": "Quick Call",
+      "start": {
+        "dateTime": "2025-01-04T10:00:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "end": {
+        "dateTime": "2025-01-04T10:30:00-05:00",
+        "timeZone": "America/New_York"
+      },
+      "iCalUID": "event4@google.com"
+    }
+  ]
+}
+
