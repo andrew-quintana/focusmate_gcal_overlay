@@ -202,67 +202,67 @@
 
 ### DOM Detection
 
-- [ ] Implement `src/content/domDetector.ts`
-  - [ ] Create `FocusmateDOMDetector` class
-  - [ ] Implement `detectDateRange()` - extract visible date range from Focusmate UI
-  - [ ] Implement `extractSessionsFromDOM()` - scrape sessions from DOM
-  - [ ] Implement `findSessionElements()` - find session DOM elements
-  - [ ] Implement `getSessionKey()` - extract or generate session key from element
-  - [ ] Implement multiple selector strategies with fallbacks
-  - [ ] Handle Focusmate route changes and SPA navigation
+- [x] Implement `src/content/domDetector.ts`
+  - [x] Create `FocusmateDOMDetector` class
+  - [x] Implement `detectDateRange()` - extract visible date range from Focusmate UI
+  - [x] Implement `extractSessionsFromDOM()` - scrape sessions from DOM
+  - [x] Implement `findSessionElements()` - find session DOM elements
+  - [x] Implement `getSessionKey()` - extract or generate session key from element
+  - [x] Implement multiple selector strategies with fallbacks
+  - [x] Handle Focusmate route changes and SPA navigation
 
 ### Overlay UI
 
-- [ ] Implement `src/content/overlay.ts`
-  - [ ] Create `CalendarOverlay` class
-  - [ ] Create Shadow DOM container
-  - [ ] Implement `render()` - display events in overlay
-  - [ ] Implement `updateDateRange()` - update displayed range
-  - [ ] Implement `toggleVisibility()` - show/hide overlay
-  - [ ] Implement collapse/expand functionality
-  - [ ] Style overlay with CSS (isolated in Shadow DOM)
-  - [ ] Add event click handlers to open Google Calendar links
-  - [ ] Implement `destroy()` for cleanup
+- [x] Implement `src/content/overlay.ts`
+  - [x] Create `CalendarOverlay` class
+  - [x] Create Shadow DOM container
+  - [x] Implement `render()` - display events in overlay
+  - [x] Implement `updateDateRange()` - update displayed range
+  - [x] Implement `toggleVisibility()` - show/hide overlay
+  - [x] Implement collapse/expand functionality
+  - [x] Style overlay with CSS (isolated in Shadow DOM)
+  - [x] Add event click handlers to open Google Calendar links
+  - [x] Implement `destroy()` for cleanup
 
 ### Conflict Styling
 
-- [ ] Implement `src/content/conflictStyling.ts`
-  - [ ] Create `ConflictStyler` class
-  - [ ] Implement `applyConflicts()` - add CSS classes to conflicting sessions
-  - [ ] Implement `clearConflicts()` - remove conflict styling
-  - [ ] Inject CSS styles (via Shadow DOM or document head)
-  - [ ] Use configurable conflict color from settings
-  - [ ] Add tooltips or indicators showing conflicting events
+- [x] Implement `src/content/conflictStyling.ts`
+  - [x] Create `ConflictStyler` class
+  - [x] Implement `applyConflicts()` - add CSS classes to conflicting sessions
+  - [x] Implement `clearConflicts()` - remove conflict styling
+  - [x] Inject CSS styles (via Shadow DOM or document head)
+  - [x] Use configurable conflict color from settings
+  - [x] Add tooltips or indicators showing conflicting events
 
 ### MutationObserver & Lifecycle
 
-- [ ] Implement `src/content/content.ts`
-  - [ ] Initialize content script on Focusmate page load
-  - [ ] Set up MutationObserver on calendar grid container
-  - [ ] Debounce MutationObserver callbacks (200ms)
-  - [ ] Detect Focusmate route changes
-  - [ ] Request data from background service worker
-  - [ ] Coordinate overlay rendering and conflict styling
-  - [ ] Handle settings changes (re-render on settings update)
-  - [ ] Implement error handling and user feedback
+- [x] Implement `src/content/content.ts`
+  - [x] Initialize content script on Focusmate page load
+  - [x] Set up MutationObserver on calendar grid container
+  - [x] Debounce MutationObserver callbacks (200ms)
+  - [x] Detect Focusmate route changes
+  - [x] Request data from background service worker
+  - [x] Coordinate overlay rendering and conflict styling
+  - [x] Handle settings changes (re-render on settings update)
+  - [x] Implement error handling and user feedback
 
 ### Phase 4 Testing
 
-- [ ] **Phase 4 Testing Summary** (`intermediate/phase_4_testing.md`)
-  - [ ] Test overlay rendering on Focusmate page
-  - [ ] Test conflict highlighting
-  - [ ] Test MutationObserver behavior
-  - [ ] Test overlay persistence across route changes
-  - [ ] Test DOM selector strategies
-  - [ ] Manual testing in Chrome with real Focusmate page
+- [x] **Phase 4 Testing Summary** (`intermediate/phase_4_testing.md`)
+  - [x] Test overlay rendering on Focusmate page
+  - [x] Test conflict highlighting
+  - [x] Test MutationObserver behavior
+  - [x] Test overlay persistence across route changes
+  - [x] Test DOM selector strategies
+  - [ ] Manual testing in Chrome with real Focusmate page (pending manual test)
 
 ### Phase 4 Handoff
 
-- [ ] **Phase 4 Handoff** (`intermediate/phase_4_handoff.md`)
-  - [ ] Document DOM selector strategies used
-  - [ ] Document any Focusmate DOM structure discoveries
-  - [ ] Document overlay positioning and styling decisions
-  - [ ] Document MutationObserver implementation details
+- [x] **Phase 4 Handoff** (`intermediate/phase_4_handoff.md`)
+  - [x] Document DOM selector strategies used
+  - [x] Document any Focusmate DOM structure discoveries
+  - [x] Document overlay positioning and styling decisions
+  - [x] Document MutationObserver implementation details
 
 ## Phase 5 — Options Page
 
