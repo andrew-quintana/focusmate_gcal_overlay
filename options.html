@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FocusMate Calendar - Options</title>
+  <title>FocusMate GCal Overlay - Options</title>
   <link rel="stylesheet" href="styles/options.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>FocusMate Calendar Extension</h1>
+      <h1>FocusMate GCal Overlay Extension</h1>
       <p class="subtitle">Configure your extension settings</p>
     </header>
     
@@ -51,16 +51,6 @@
               <input type="text" id="conflictColorText" placeholder="#ff6b6b" class="color-text-input">
             </div>
             <p class="form-help">Color used to highlight Focusmate sessions that conflict with Google Calendar events. Use hex format (#rrggbb) or CSS color names.</p>
-          </div>
-        </section>
-
-        <!-- Focusmate API Key -->
-        <section class="form-section">
-          <h2>Focusmate API (Optional)</h2>
-          <div class="form-group">
-            <label for="focusmateApiKey">Focusmate API Key:</label>
-            <input type="password" id="focusmateApiKey" name="focusmateApiKey" placeholder="Enter your Focusmate API key (optional)">
-            <p class="form-help">Optional. If provided, the extension will use the Focusmate API to fetch sessions. If not provided, sessions will be detected from the DOM or Google Calendar (when sync is enabled).</p>
           </div>
         </section>
 

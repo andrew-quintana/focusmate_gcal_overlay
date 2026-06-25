@@ -41,6 +41,36 @@ export interface GetCalendarsMessage {
 }
 
 /**
+ * Message to check authentication status
+ */
+export interface CheckAuthMessage {
+  type: 'CHECK_AUTH';
+}
+
+/**
+ * Message to trigger authentication
+ */
+export interface AuthenticateMessage {
+  type: 'AUTHENTICATE';
+}
+
+/**
+ * Response for authentication status
+ */
+export interface AuthStatusResponse {
+  authenticated: boolean;
+  error?: string;
+}
+
+/**
+ * Response for authentication request
+ */
+export interface AuthenticateResponse {
+  ok: boolean;
+  error?: string;
+}
+
+/**
  * Response with current extension settings
  */
 export interface SettingsResponse {
@@ -70,10 +100,10 @@ export interface CalendarsResponse {
 /**
  * Union type for all messages from content script or options page
  */
-export type ContentToBackgroundMessage = FetchDataForRangeMessage | GetSettingsMessage | GetCalendarsMessage;
+export type ContentToBackgroundMessage = FetchDataForRangeMessage | GetSettingsMessage | GetCalendarsMessage | CheckAuthMessage | AuthenticateMessage;
 
 /**
  * Union type for all messages from background
  */
-export type BackgroundToContentMessage = RangeDataResponse | SettingsResponse | CalendarsResponse;
+export type BackgroundToContentMessage = RangeDataResponse | SettingsResponse | CalendarsResponse | AuthStatusResponse | AuthenticateResponse;
 

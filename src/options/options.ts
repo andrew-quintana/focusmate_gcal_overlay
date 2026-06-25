@@ -20,7 +20,6 @@ class OptionsUI {
   private conflictColorInput!: HTMLInputElement;
   private conflictColorTextInput!: HTMLInputElement;
   private calendarListContainer!: HTMLElement;
-  private focusmateApiKeyInput!: HTMLInputElement;
   private debugLoggingInput!: HTMLInputElement;
   private saveButton!: HTMLButtonElement;
   private cancelButton!: HTMLButtonElement;
@@ -40,7 +39,6 @@ class OptionsUI {
     this.conflictColorInput = document.getElementById('conflictColor') as HTMLInputElement;
     this.conflictColorTextInput = document.getElementById('conflictColorText') as HTMLInputElement;
     this.calendarListContainer = document.getElementById('calendarList') as HTMLElement;
-    this.focusmateApiKeyInput = document.getElementById('focusmateApiKey') as HTMLInputElement;
     this.debugLoggingInput = document.getElementById('debugLogging') as HTMLInputElement;
     this.saveButton = document.getElementById('saveButton') as HTMLButtonElement;
     this.cancelButton = document.getElementById('cancelButton') as HTMLButtonElement;
@@ -95,7 +93,6 @@ class OptionsUI {
     this.overlayEnabledInput.checked = this.currentSettings.overlayEnabled;
     this.conflictColorInput.value = this.currentSettings.conflictColor;
     this.conflictColorTextInput.value = this.currentSettings.conflictColor;
-    this.focusmateApiKeyInput.value = this.currentSettings.focusmateApiKey || '';
     this.debugLoggingInput.checked = this.currentSettings.debugLogging;
 
     // Render calendar list
@@ -248,7 +245,7 @@ class OptionsUI {
         overlayEnabled: this.overlayEnabledInput.checked,
         conflictColor: colorValue,
         calendarIds: this.getSelectedCalendarIds(),
-        focusmateApiKey: this.focusmateApiKeyInput.value.trim() || null,
+        focusmateApiKey: null, // API key no longer needed - sessions detected from DOM or Google Calendar
         debugLogging: this.debugLoggingInput.checked,
       };
 

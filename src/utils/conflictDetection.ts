@@ -48,6 +48,16 @@ export function computeConflicts(
     const conflictingEventIds: string[] = [];
 
     for (const event of events) {
+      // Skip events with invalid time ranges
+      if (!event.startMs || (event.endMs === null || event.endMs === undefined)) {
+        continue;
+      }
+
+      // Validate session time range
+      if (session.startMs > session.endMs) {
+        continue;
+      }
+
       let overlaps = false;
 
       if (event.allDay) {
@@ -59,12 +69,23 @@ export function computeConflicts(
         );
       } else {
         // Timed event: use standard interval overlap
-        overlaps = intervalsOverlap(
-          session.startMs,
-          session.endMs,
-          event.startMs,
-          event.endMs
-        );
+        // Validate event time range
+        if (event.startMs > event.endMs) {
+          continue;
+        }
+        
+        try {
+          overlaps = intervalsOverlap(
+            session.startMs,
+            session.endMs,
+            event.startMs,
+            event.endMs
+          );
+        } catch (error) {
+          // Skip invalid intervals
+          console.warn('Skipping invalid event interval:', event.id, error);
+          continue;
+        }
       }
 
       if (overlaps) {

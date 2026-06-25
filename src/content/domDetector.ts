@@ -446,8 +446,8 @@ export class FocusmateDOMDetector {
       const startMin = parseInt(match[2], 10);
       const startPeriod = match[3]?.toUpperCase() || '';
       const endHour = parseInt(match[4], 10);
-      const endMin = parseInt(match[6], 10);
-      const endPeriod = match[7]?.toUpperCase() || '';
+      const endMin = parseInt(match[5], 10); // Fixed: was match[6], should be match[5]
+      const endPeriod = match[6]?.toUpperCase() || ''; // Fixed: was match[7], should be match[6]
 
       // Convert to 24-hour format
       let startHour24 = startHour;

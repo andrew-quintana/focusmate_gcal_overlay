@@ -15,6 +15,7 @@ export class CalendarOverlay {
   private isCollapsed: boolean = false;
   private events: GCalEvent[] = [];
   private dateRange: { startMs: number; endMs: number } | null = null;
+  private errorMessage: string | null = null;
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -82,6 +83,24 @@ export class CalendarOverlay {
     return this.isCollapsed;
   }
 
+  /**
+   * Shows an error message in the overlay
+   * 
+   * @param message - Error message to display
+   */
+  showError(message: string): void {
+    this.errorMessage = message;
+    this.render();
+  }
+
+  /**
+   * Clears the error message
+   */
+  clearError(): void {
+    this.errorMessage = null;
+    this.render();
+  }
+
   // Private helper methods
 
   private createHeader(): HTMLElement {
@@ -117,6 +136,15 @@ export class CalendarOverlay {
   private createContent(): HTMLElement {
     const content = document.createElement('div');
     content.className = 'fmcal-content';
+
+    // Show error if present
+    if (this.errorMessage) {
+      const error = document.createElement('div');
+      error.className = 'fmcal-error';
+      error.textContent = this.errorMessage;
+      content.appendChild(error);
+      return content;
+    }
 
     if (this.events.length === 0) {
       const empty = document.createElement('div');
@@ -311,6 +339,17 @@ export class CalendarOverlay {
         text-align: center;
         color: #999;
         font-size: 13px;
+      }
+
+      .fmcal-error {
+        padding: 16px;
+        margin: 8px;
+        background: #fee;
+        border: 1px solid #fcc;
+        border-radius: 6px;
+        color: #c33;
+        font-size: 13px;
+        line-height: 1.5;
       }
 
       .fmcal-event-list {

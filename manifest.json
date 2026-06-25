@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "FocusMate Calendar",
+  "name": "FocusMate GCal Overlay",
   "version": "1.0.0",
   "description": "A Chrome extension for managing FocusMate calendar",
   "permissions": [
@@ -10,9 +10,11 @@
   ],
   "host_permissions": [
     "https://app.focusmate.com/*",
+    "https://api.focusmate.com/*",
     "https://www.googleapis.com/*"
   ],
   "action": {
+    "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -24,7 +26,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://app.focusmate.com/*"],
+      "matches": [
+        "https://app.focusmate.com/*"
+      ],
       "js": ["dist/content.js"]
     }
   ],
@@ -33,6 +37,12 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "options_page": "options.html"
+  "options_page": "options.html",
+  "oauth2": {
+    "client_id": "1057083449338-9vn0ac4bjibb3d0566vfv4fh59krv915.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly"
+    ]
+  }
 }
 

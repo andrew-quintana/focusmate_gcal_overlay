@@ -24,3 +24,25 @@ Thumbs.db
 node_modules/
 package-lock.json
 
+.env.local
+
+# === archive defaults ===
+.env
+.env.local
+.env.*.local
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.next/
+dist/
+build/
+.DS_Store
+.ipynb_checkpoints/
+*.log
+*.zip
+*.tar.gz
+*.dmg
+*.iso

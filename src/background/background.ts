@@ -9,9 +9,13 @@ import type {
   FetchDataForRangeMessage,
   GetSettingsMessage,
   GetCalendarsMessage,
+  CheckAuthMessage,
+  AuthenticateMessage,
   RangeDataResponse,
   SettingsResponse,
   CalendarsResponse,
+  AuthStatusResponse,
+  AuthenticateResponse,
 } from '../types/messages';
 import type { ExtensionSettings } from '../types/storage';
 import { DEFAULT_SETTINGS, STORAGE_KEYS } from '../types/storage';
@@ -19,6 +23,8 @@ import { GoogleAuthManager } from './auth';
 import { GoogleCalendarClient } from './calendar';
 import { FocusmateClient } from './focusmate';
 import { ConflictComputer } from './conflict';
+import type { GCalEvent, FocusmateSession } from '../types/events';
+import { generateSessionKey } from '../utils/sessionNormalization';
 
 /**
  * Main background service worker class
@@ -155,6 +161,12 @@ class BackgroundServiceWorker {
       } else if (message.type === 'GET_CALENDARS') {
         const response = await this.handleGetCalendars(message);
         sendResponse(response);
+      } else if (message.type === 'CHECK_AUTH') {
+        const response = await this.handleCheckAuth(message);
+        sendResponse(response);
+      } else if (message.type === 'AUTHENTICATE') {
+        const response = await this.handleAuthenticate(message);
+        sendResponse(response);
       } else {
         sendResponse({
           ok: false,
@@ -183,11 +195,17 @@ class BackgroundServiceWorker {
   ): Promise<RangeDataResponse> {
     const { range, sessionsFromDom } = message;
 
+    // Ensure settings are loaded (service worker might have been sleeping)
+    if (!this.settings.calendarIds || this.settings.calendarIds.length === 0) {
+      await this.loadSettings();
+    }
+
     if (this.settings.debugLogging) {
       console.log('[BackgroundServiceWorker] Fetching data for range', {
         start: new Date(range.startMs).toISOString(),
         end: new Date(range.endMs).toISOString(),
         sessionsFromDom: sessionsFromDom?.length ?? 0,
+        calendarIds: this.settings.calendarIds,
       });
     }
 
@@ -227,35 +245,85 @@ class BackgroundServiceWorker {
         }
       }
 
-      // If no sessions from DOM or API, check if sessions are in Google Calendar events
+      // If no sessions from DOM or API, extract sessions from Google Calendar events
       // (when Focusmate→Google Calendar sync is enabled)
       // This is the preferred source of truth
-      if (sessions.length === 0 && this.settings.debugLogging) {
-        console.log('[BackgroundServiceWorker] No Focusmate sessions found, using Google Calendar events as source of truth');
+      if (sessions.length === 0) {
+        sessions = this.extractSessionsFromEvents(events);
+        if (this.settings.debugLogging) {
+          console.log('[BackgroundServiceWorker] Extracted sessions from Google Calendar events:', sessions.length);
+        }
       }
 
+      // Filter out events with invalid time ranges before computing conflicts
+      const validEvents = events.filter(event => {
+        if (!event.startMs || event.endMs == null || isNaN(event.startMs) || isNaN(event.endMs)) {
+          if (this.settings.debugLogging) {
+            console.warn('[BackgroundServiceWorker] Filtering out event with invalid time range:', event.id, {
+              startMs: event.startMs,
+              endMs: event.endMs,
+            });
+          }
+          return false;
+        }
+        if (event.startMs >= event.endMs) {
+          if (this.settings.debugLogging) {
+            console.warn('[BackgroundServiceWorker] Filtering out event with invalid time range (start >= end):', event.id);
+          }
+          return false;
+        }
+        return true;
+      });
+
+      // Filter out sessions with invalid time ranges
+      const validSessions = sessions.filter(session => {
+        if (!session.startMs || !session.endMs || isNaN(session.startMs) || isNaN(session.endMs)) {
+          if (this.settings.debugLogging) {
+            console.warn('[BackgroundServiceWorker] Filtering out session with invalid time range:', session.id);
+          }
+          return false;
+        }
+        if (session.startMs >= session.endMs) {
+          if (this.settings.debugLogging) {
+            console.warn('[BackgroundServiceWorker] Filtering out session with invalid time range (start >= end):', session.id);
+          }
+          return false;
+        }
+        return true;
+      });
+
       // Compute conflicts
-      const conflicts = this.conflictComputer.compute(sessions, events);
+      const conflicts = this.conflictComputer.compute(validSessions, validEvents);
 
       if (this.settings.debugLogging) {
         console.log('[BackgroundServiceWorker] Computed conflicts', {
           events: events.length,
+          validEvents: validEvents.length,
           sessions: sessions.length,
+          validSessions: validSessions.length,
           conflicts: Object.keys(conflicts).length,
         });
       }
 
       return {
         ok: true,
-        events,
-        sessions,
+        events: validEvents,
+        sessions: validSessions,
         conflicts,
       };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorStack = error instanceof Error ? error.stack : undefined;
       
+      // Always log errors for debugging
+      console.error('[BackgroundServiceWorker] Failed to fetch data:', {
+        error: errorMessage,
+        stack: errorStack,
+        calendarIds: this.settings.calendarIds,
+      });
+
       if (this.settings.debugLogging) {
-        console.error('[BackgroundServiceWorker] Failed to fetch data:', error);
+        console.error('[BackgroundServiceWorker] Full error details:', error);
       }
 
       return {
@@ -263,6 +331,59 @@ class BackgroundServiceWorker {
         error: errorMessage,
       };
     }
+  }
+
+  /**
+   * Extracts Focusmate sessions from Google Calendar events.
+   * 
+   * When Focusmate syncs to Google Calendar, sessions appear as events.
+   * This method identifies which events are Focusmate sessions by:
+   * - Checking if calendar name contains "Focusmate" (case-insensitive)
+   * - Checking if event summary matches Focusmate patterns
+   * 
+   * @param events - Array of Google Calendar events
+   * @returns Array of FocusmateSession objects extracted from events
+   */
+  private extractSessionsFromEvents(events: GCalEvent[]): FocusmateSession[] {
+    const sessions: FocusmateSession[] = [];
+
+    for (const event of events) {
+      // Skip all-day events (Focusmate sessions are timed)
+      if (event.allDay) {
+        continue;
+      }
+
+      // Skip events with invalid time ranges
+      if (!event.startMs || !event.endMs || event.startMs >= event.endMs) {
+        continue;
+      }
+
+      // Check if this looks like a Focusmate session
+      // Strategy 1: Check if calendar name contains "Focusmate"
+      const isFocusmateCalendar = event.calendarId.toLowerCase().includes('focusmate');
+      
+      // Strategy 2: Check if summary matches Focusmate patterns
+      // Focusmate sessions often have patterns like "Partner Name" or "Matching..."
+      const summary = event.summary || '';
+      const looksLikeFocusmate = 
+        summary.includes('Matching') ||
+        /^[A-Z][a-z]+ [A-Z]\./.test(summary) || // Pattern like "Fred (he/him)" or "Gurinder K."
+        /^[A-Z][a-z]+ [A-Z][a-z]+/.test(summary); // Pattern like "Jenna W."
+
+      // If it looks like a Focusmate session, convert to session
+      if (isFocusmateCalendar || looksLikeFocusmate) {
+        const sessionKey = generateSessionKey(event.startMs, event.endMs, event.summary);
+        sessions.push({
+          id: event.id,
+          startMs: event.startMs,
+          endMs: event.endMs,
+          title: event.summary,
+          raw: event,
+        });
+      }
+    }
+
+    return sessions;
   }
 
   /**
@@ -303,6 +424,52 @@ class BackgroundServiceWorker {
       
       if (this.settings.debugLogging) {
         console.error('[BackgroundServiceWorker] Failed to get calendars:', error);
+      }
+
+      return {
+        ok: false,
+        error: errorMessage,
+      };
+    }
+  }
+
+  /**
+   * Handles CHECK_AUTH message
+   */
+  private async handleCheckAuth(
+    message: CheckAuthMessage
+  ): Promise<AuthStatusResponse> {
+    try {
+      // Try to get auth token (non-interactive)
+      await this.authManager.getAuthToken(false);
+      return {
+        authenticated: true,
+      };
+    } catch (error) {
+      return {
+        authenticated: false,
+        error: error instanceof Error ? error.message : String(error),
+      };
+    }
+  }
+
+  /**
+   * Handles AUTHENTICATE message
+   */
+  private async handleAuthenticate(
+    message: AuthenticateMessage
+  ): Promise<AuthenticateResponse> {
+    try {
+      // Get auth token (interactive - will show OAuth popup)
+      await this.authManager.getAuthToken(true);
+      return {
+        ok: true,
+      };
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      
+      if (this.settings.debugLogging) {
+        console.error('[BackgroundServiceWorker] Authentication failed:', error);
       }
 
       return {

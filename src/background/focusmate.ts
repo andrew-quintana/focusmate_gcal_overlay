@@ -126,8 +126,15 @@ export class FocusmateClient {
       // Graceful error handling - log but don't crash
       const errorMessage = error instanceof Error ? error.message : String(error);
       
-      if (debugLogging) {
+      // Check if it's a CORS error (expected for extensions)
+      const isCorsError = errorMessage.includes('CORS') || 
+                         errorMessage.includes('Access-Control-Allow-Origin') ||
+                         errorMessage.includes('blocked by CORS policy');
+      
+      if (debugLogging && !isCorsError) {
         console.error('[FocusmateClient] Failed to fetch sessions:', errorMessage);
+      } else if (isCorsError && debugLogging) {
+        console.log('[FocusmateClient] CORS error (expected): Focusmate API does not allow extension origins. Using Google Calendar events only.');
       }
 
       // Return empty array on error (graceful degradation)

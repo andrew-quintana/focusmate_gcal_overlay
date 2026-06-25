@@ -39,7 +39,12 @@ export function intervalsOverlap(
   bStart: number,
   bEnd: number
 ): boolean {
-  // Validate inputs
+  // Validate inputs - check for null/undefined
+  if (aStart == null || aEnd == null || bStart == null || bEnd == null) {
+    throw new Error('Invalid interval: all times must be defined');
+  }
+
+  // Validate inputs - check for invalid ranges
   if (aStart > aEnd || bStart > bEnd) {
     throw new Error('Invalid interval: start time must be <= end time');
   }
@@ -77,8 +82,20 @@ export function overlapsWithAllDay(
   
   // Get the end of the all-day event's day (next midnight) in local time
   const allDayEnd = new Date(allDayDateMs);
-  allDayEnd.setHours(24, 0, 0, 0);
+  allDayEnd.setDate(allDayEnd.getDate() + 1);
+  allDayEnd.setHours(0, 0, 0, 0);
   const allDayEndMs = allDayEnd.getTime();
+  
+  // Validate intervals before checking overlap
+  if (eventStartMs > eventEndMs) {
+    console.warn('Invalid event interval: start > end', { eventStartMs, eventEndMs });
+    return false;
+  }
+  
+  if (allDayStartMs > allDayEndMs) {
+    console.warn('Invalid all-day interval: start > end', { allDayStartMs, allDayEndMs });
+    return false;
+  }
   
   // Check if the timed event overlaps with the full day
   return intervalsOverlap(eventStartMs, eventEndMs, allDayStartMs, allDayEndMs);
